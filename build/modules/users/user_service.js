@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,24 +8,35 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteUser = exports.updateUser = exports.getUserById = exports.getAllUsers = exports.createUser = exports.saveMethod = void 0;
 // src/services/user_service.ts
-import User from '../users/user_models.js';
-export const saveMethod = () => {
+const user_models_js_1 = __importDefault(require("../users/user_models.js"));
+const saveMethod = () => {
     return 'Hola';
 };
-export const createUser = (userData) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = new User(userData);
+exports.saveMethod = saveMethod;
+const createUser = (userData) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = new user_models_js_1.default(userData);
     return yield user.save();
 });
-export const getAllUsers = () => __awaiter(void 0, void 0, void 0, function* () {
-    return yield User.find();
+exports.createUser = createUser;
+const getAllUsers = () => __awaiter(void 0, void 0, void 0, function* () {
+    return yield user_models_js_1.default.find();
 });
-export const getUserById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield User.findById(id);
+exports.getAllUsers = getAllUsers;
+const getUserById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield user_models_js_1.default.findById(id);
 });
-export const updateUser = (id, updateData) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield User.updateOne({ _id: id }, { $set: updateData });
+exports.getUserById = getUserById;
+const updateUser = (id, updateData) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield user_models_js_1.default.updateOne({ _id: id }, { $set: updateData });
 });
-export const deleteUser = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield User.deleteOne({ _id: id });
+exports.updateUser = updateUser;
+const deleteUser = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield user_models_js_1.default.deleteOne({ _id: id });
 });
+exports.deleteUser = deleteUser;

@@ -1,8 +1,13 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 // src/routes/user_routes.ts
-import express from 'express';
-import { saveMethodHandler, createUserHandler, getAllUsersHandler, getUserByIdHandler, updateUserHandler, deleteUserHandler } from '../users/user_controller.js';
-import { checkJwt } from '../../middleware/session.js';
-const router = express.Router();
+const express_1 = __importDefault(require("express"));
+const user_controller_js_1 = require("../users/user_controller.js");
+const session_js_1 = require("../../middleware/session.js");
+const router = express_1.default.Router();
 /**
  * @openapi
  * /api/main:
@@ -23,7 +28,7 @@ const router = express.Router();
  *                   type: string
  *                   example: Bienvenido a la API
  */
-router.get('/main', saveMethodHandler);
+router.get('/main', user_controller_js_1.saveMethodHandler);
 /**
  * @openapi
  * /api/users:
@@ -51,7 +56,7 @@ router.get('/main', saveMethodHandler);
  *       201:
  *         description: Usuario creado exitosamente
  */
-router.post('/users', createUserHandler);
+router.post('/users', user_controller_js_1.createUserHandler);
 /**
  * @openapi
  * /api/users:
@@ -77,7 +82,7 @@ router.post('/users', createUserHandler);
  *                  email:
  *                     type: string
  */
-router.get('/users', checkJwt, getAllUsersHandler);
+router.get('/users', session_js_1.checkJwt, user_controller_js_1.getAllUsersHandler);
 /**
  * @openapi
  * /api/users/{id}:
@@ -109,7 +114,7 @@ router.get('/users', checkJwt, getAllUsersHandler);
  *       404:
  *         description: Usuario no encontrado
  */
-router.get('/users/:id', getUserByIdHandler);
+router.get('/users/:id', user_controller_js_1.getUserByIdHandler);
 /**
  * @openapi
  * /api/users/{id}:
@@ -143,7 +148,7 @@ router.get('/users/:id', getUserByIdHandler);
  *       404:
  *         description: Usuario no encontrado
  */
-router.put('/users/:id', updateUserHandler);
+router.put('/users/:id', user_controller_js_1.updateUserHandler);
 /**
  * @openapi
  * /api/users/{id}:
@@ -164,5 +169,50 @@ router.put('/users/:id', updateUserHandler);
  *       404:
  *         description: Usuario no encontrado
  */
-router.delete('/users/:id', deleteUserHandler);
-export default router;
+router.delete('/users/:id', user_controller_js_1.deleteUserHandler);
+/**
+ * @openapi
+ * /api/login:
+ *   post:
+ *     summary: Inicia sesión un usuario
+ *     description: Permite a un usuario iniciar sesión proporcionando sus credenciales.
+ *     tags:
+ *       - Auth
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: El correo electrónico del usuario.
+ *                 example: usuario@example.com
+ *               password:
+ *                 type: string
+ *                 description: La contraseña del usuario.
+ *                 example: contraseña123
+ *     responses:
+ *       200:
+ *         description: Inicio de sesión exitoso.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 accessToken:
+ *                   type: string
+ *                   description: El token de acceso generado.
+ *                   example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+ *                 refreshToken:
+ *                   type: string
+ *                   description: El token de actualización generado.
+ *                   example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+ *       401:
+ *         description: Credenciales inválidas.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.post('/login', user_controller_js_1.loginHandler);
+exports.default = router;

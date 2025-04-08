@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,28 +8,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { saveMethod, createSubject, getAllSubjects, getSubjectById, updateSubject, deleteSubject, getUsersBySubject } from "./subject_service.js";
-export const saveMethodHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getUsersBySubjectHandler = exports.deleteSubjectHandler = exports.updateSubjectHandler = exports.getSubjectByIdHandler = exports.getAllSubjectsHandler = exports.createSubjectHandler = exports.saveMethodHandler = void 0;
+const subject_service_js_1 = require("./subject_service.js");
+const saveMethodHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = saveMethod();
+        const data = (0, subject_service_js_1.saveMethod)();
         res.json(data);
     }
     catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
-export const createSubjectHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.saveMethodHandler = saveMethodHandler;
+const createSubjectHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield createSubject(req.body);
+        const data = yield (0, subject_service_js_1.createSubject)(req.body);
         res.json(data);
     }
     catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
-export const getAllSubjectsHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.createSubjectHandler = createSubjectHandler;
+const getAllSubjectsHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield getAllSubjects();
+        const data = yield (0, subject_service_js_1.getAllSubjects)();
         res.json({
             data,
             user: req.user
@@ -38,39 +43,44 @@ export const getAllSubjectsHandler = (req, res) => __awaiter(void 0, void 0, voi
         res.status(500).json({ message: error.message });
     }
 });
-export const getSubjectByIdHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getAllSubjectsHandler = getAllSubjectsHandler;
+const getSubjectByIdHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield getSubjectById(req.params.id);
+        const data = yield (0, subject_service_js_1.getSubjectById)(req.params.id);
         res.json(data);
     }
     catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
-export const updateSubjectHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getSubjectByIdHandler = getSubjectByIdHandler;
+const updateSubjectHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield updateSubject(req.params.id, req.body);
+        const data = yield (0, subject_service_js_1.updateSubject)(req.params.id, req.body);
         res.json(data);
     }
     catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
-export const deleteSubjectHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.updateSubjectHandler = updateSubjectHandler;
+const deleteSubjectHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield deleteSubject(req.params.id);
+        const data = yield (0, subject_service_js_1.deleteSubject)(req.params.id);
         res.json(data);
     }
     catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
-export const getUsersBySubjectHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.deleteSubjectHandler = deleteSubjectHandler;
+const getUsersBySubjectHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield getUsersBySubject(req.params.id);
+        const data = yield (0, subject_service_js_1.getUsersBySubject)(req.params.id);
         res.json(data);
     }
     catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+exports.getUsersBySubjectHandler = getUsersBySubjectHandler;

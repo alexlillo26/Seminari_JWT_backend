@@ -6,7 +6,9 @@ import {
     getAllUsersHandler,
     getUserByIdHandler,
     updateUserHandler,
-    deleteUserHandler
+    deleteUserHandler,
+    loginHandler,
+    
 } from '../users/user_controller.js';
 import { checkJwt } from '../../middleware/session.js';
 const router = express.Router();
@@ -178,5 +180,51 @@ router.put('/users/:id', updateUserHandler);
  *         description: Usuario no encontrado
  */
 router.delete('/users/:id', deleteUserHandler);
+
+/**
+ * @openapi
+ * /api/login:
+ *   post:
+ *     summary: Inicia sesión un usuario
+ *     description: Permite a un usuario iniciar sesión proporcionando sus credenciales.
+ *     tags:
+ *       - Auth
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: El correo electrónico del usuario.
+ *                 example: usuario@example.com
+ *               password:
+ *                 type: string
+ *                 description: La contraseña del usuario.
+ *                 example: contraseña123
+ *     responses:
+ *       200:
+ *         description: Inicio de sesión exitoso.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 accessToken:
+ *                   type: string
+ *                   description: El token de acceso generado.
+ *                   example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+ *                 refreshToken:
+ *                   type: string
+ *                   description: El token de actualización generado.
+ *                   example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+ *       401:
+ *         description: Credenciales inválidas.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.post('/login', loginHandler);
 
 export default router;

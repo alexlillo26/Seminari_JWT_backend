@@ -1,7 +1,11 @@
-// src/routes/user_routes.ts
-import express from 'express';
-import { registerCtrl, loginCtrl, googleAuthCtrl, googleAuthCallback } from "../auth/auth_controller.js";
-const router = express.Router();
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const auth_controller_js_1 = require("../auth/auth_controller.js");
+const router = express_1.default.Router();
 /**
  * @swagger
  * components:
@@ -65,7 +69,7 @@ const router = express.Router();
  *       400:
  *         description: Error en la solicitud
  */
-router.post("/auth/register", registerCtrl);
+router.post("/auth/register", auth_controller_js_1.registerCtrl);
 /**
  * @swagger
  * /api/auth/login:
@@ -84,7 +88,42 @@ router.post("/auth/register", registerCtrl);
  *       400:
  *         description: Error en la solicitud
  */
-router.post("/auth/login", loginCtrl);
+router.post("/auth/login", auth_controller_js_1.loginCtrl);
+/**
+ * @swagger
+ * /api/auth/refresh-token:
+ *   post:
+ *     summary: Genera un nuevo access token usando un refresh token
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               token:
+ *                 type: string
+ *                 description: El refresh token válido
+ *             example:
+ *               token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *     responses:
+ *       200:
+ *         description: Nuevo access token generado exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 accessToken:
+ *                   type: string
+ *                   description: El nuevo access token
+ *       401:
+ *         description: Refresh token es requerido
+ *       403:
+ *         description: Refresh token inválido o expirado
+ */
+router.post("/auth/refresh-token", auth_controller_js_1.refreshTokenHandler);
 /**
  * @swagger
  * /api/auth/google:
@@ -95,7 +134,7 @@ router.post("/auth/login", loginCtrl);
  *       302:
  *         description: Redirección a Google para autenticación
  */
-router.get('/auth/google', googleAuthCtrl);
+router.get('/auth/google', auth_controller_js_1.googleAuthCtrl);
 /**
  * @swagger
  * /api/auth/google/callback:
@@ -108,5 +147,5 @@ router.get('/auth/google', googleAuthCtrl);
  *       400:
  *         description: Error en la autenticación
  */
-router.get('/auth/google/callback', googleAuthCallback);
-export default router;
+router.get('/auth/google/callback', auth_controller_js_1.googleAuthCallback);
+exports.default = router;

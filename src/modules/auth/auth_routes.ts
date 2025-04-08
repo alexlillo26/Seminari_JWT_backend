@@ -1,6 +1,5 @@
-// src/routes/user_routes.ts
 import express from 'express';
-import { registerCtrl, loginCtrl, googleAuthCtrl, googleAuthCallback } from "../auth/auth_controller.js";
+import { registerCtrl, loginCtrl, googleAuthCtrl, googleAuthCallback, refreshTokenHandler } from "../auth/auth_controller.js";
 
 const router = express.Router();
 
@@ -89,6 +88,43 @@ router.post("/auth/register", registerCtrl);
  *         description: Error en la solicitud
  */
 router.post("/auth/login", loginCtrl);
+
+/**
+ * @swagger
+ * /api/auth/refresh-token:
+ *   post:
+ *     summary: Genera un nuevo access token usando un refresh token
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               token:
+ *                 type: string
+ *                 description: El refresh token válido
+ *             example:
+ *               token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *     responses:
+ *       200:
+ *         description: Nuevo access token generado exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 accessToken:
+ *                   type: string
+ *                   description: El nuevo access token
+ *       401:
+ *         description: Refresh token es requerido
+ *       403:
+ *         description: Refresh token inválido o expirado
+ */
+router.post("/auth/refresh-token", refreshTokenHandler);
+
 /**
  * @swagger
  * /api/auth/google:
@@ -99,7 +135,7 @@ router.post("/auth/login", loginCtrl);
  *       302:
  *         description: Redirección a Google para autenticación
  */
-router.get('/auth/google',googleAuthCtrl );
+router.get('/auth/google', googleAuthCtrl);
 
 /**
  * @swagger
@@ -114,5 +150,6 @@ router.get('/auth/google',googleAuthCtrl );
  *         description: Error en la autenticación
  */
 router.get('/auth/google/callback', googleAuthCallback);
+
 
 export default router;

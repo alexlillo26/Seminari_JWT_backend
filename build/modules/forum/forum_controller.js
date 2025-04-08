@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,49 +8,56 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { createEntry, deleteEntry, getAllForum, getEntryById, updateEntry } from './forum_service.js';
-export const createEntryHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteEntryHandler = exports.updateEntryHandler = exports.getEntryByIdHandler = exports.getAllForumHandler = exports.createEntryHandler = void 0;
+const forum_service_js_1 = require("./forum_service.js");
+const createEntryHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield createEntry(req.body);
+        const data = yield (0, forum_service_js_1.createEntry)(req.body);
         res.json(data);
     }
     catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
-export const getAllForumHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.createEntryHandler = createEntryHandler;
+const getAllForumHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield getAllForum();
+        const data = yield (0, forum_service_js_1.getAllForum)();
         res.json(data);
     }
     catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
-export const getEntryByIdHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getAllForumHandler = getAllForumHandler;
+const getEntryByIdHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield getEntryById(req.params.id);
+        const data = yield (0, forum_service_js_1.getEntryById)(req.params.id);
         res.json(data);
     }
     catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
-export const updateEntryHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getEntryByIdHandler = getEntryByIdHandler;
+const updateEntryHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield updateEntry(req.params.id, req.body);
+        const data = yield (0, forum_service_js_1.updateEntry)(req.params.id, req.body);
         res.json(data);
     }
     catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
-export const deleteEntryHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.updateEntryHandler = updateEntryHandler;
+const deleteEntryHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield deleteEntry(req.params.id);
+        const data = yield (0, forum_service_js_1.deleteEntry)(req.params.id);
         res.json(data);
     }
     catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+exports.deleteEntryHandler = deleteEntryHandler;

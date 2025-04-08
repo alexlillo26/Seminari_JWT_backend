@@ -1,7 +1,12 @@
-import express from 'express';
-import { saveMethodHandler, createSubjectHandler, getAllSubjectsHandler, getSubjectByIdHandler, updateSubjectHandler, deleteSubjectHandler, getUsersBySubjectHandler } from '../subjects/subject_controller.js';
-import { checkJwt } from '../../middleware/session.js';
-const router = express.Router();
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const subject_controller_js_1 = require("../subjects/subject_controller.js");
+const session_js_1 = require("../../middleware/session.js");
+const router = express_1.default.Router();
 /**
  * @swagger
  * components:
@@ -46,7 +51,7 @@ const router = express.Router();
  *                   type: string
  *                   example: Bienvenido a la API
  */
-router.get('/main', saveMethodHandler);
+router.get('/main', subject_controller_js_1.saveMethodHandler);
 /**
  * @swagger
  * /api/subjects:
@@ -65,7 +70,7 @@ router.get('/main', saveMethodHandler);
  *       201:
  *         description: Asignatura creada exitosamente
  */
-router.post('/subjects', createSubjectHandler);
+router.post('/subjects', subject_controller_js_1.createSubjectHandler);
 /**
  * @swagger
  * /api/subjects:
@@ -86,7 +91,7 @@ router.post('/subjects', createSubjectHandler);
  *               items:
  *                 $ref: '#/components/schemas/Subject'
  */
-router.get('/subjects', checkJwt, getAllSubjectsHandler);
+router.get('/subjects', session_js_1.checkJwt, subject_controller_js_1.getAllSubjectsHandler);
 /**
  * @swagger
  * /api/subjects/{id}:
@@ -110,7 +115,7 @@ router.get('/subjects', checkJwt, getAllSubjectsHandler);
  *             schema:
  *               $ref: '#/components/schemas/Subject'
  */
-router.get('/subjects/:id', getSubjectByIdHandler);
+router.get('/subjects/:id', subject_controller_js_1.getSubjectByIdHandler);
 /**
  * @swagger
  * /api/subjects/{id}:
@@ -136,7 +141,7 @@ router.get('/subjects/:id', getSubjectByIdHandler);
  *       200:
  *         description: Asignatura actualizada exitosamente
  */
-router.put('/subjects/:id', updateSubjectHandler);
+router.put('/subjects/:id', subject_controller_js_1.updateSubjectHandler);
 /**
  * @swagger
  * /api/subjects/{id}:
@@ -156,7 +161,7 @@ router.put('/subjects/:id', updateSubjectHandler);
  *       200:
  *         description: Asignatura eliminada exitosamente
  */
-router.delete('/subjects/:id', deleteSubjectHandler);
+router.delete('/subjects/:id', subject_controller_js_1.deleteSubjectHandler);
 /**
  * @swagger
  * /api/subjects/{id}/users:
@@ -181,5 +186,5 @@ router.delete('/subjects/:id', deleteSubjectHandler);
  *               items:
  *                 type: string
  */
-router.get('/subjects/:id/users', getUsersBySubjectHandler);
-export default router;
+router.get('/subjects/:id/users', subject_controller_js_1.getUsersBySubjectHandler);
+exports.default = router;

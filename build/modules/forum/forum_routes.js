@@ -1,6 +1,11 @@
-import express from 'express';
-import { createEntryHandler, deleteEntryHandler, getAllForumHandler, getEntryByIdHandler, updateEntryHandler } from './forum_controller.js';
-const router = express.Router();
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const forum_controller_js_1 = require("./forum_controller.js");
+const router = express_1.default.Router();
 /**
  * @openapi
  * /api/forum:
@@ -24,7 +29,7 @@ const router = express.Router();
  *       201:
  *         description: Entrada creada exitosamente
  */
-router.post('/forum', createEntryHandler);
+router.post('/forum', forum_controller_js_1.createEntryHandler);
 /**
  * @openapi
  * /api/forum:
@@ -48,7 +53,7 @@ router.post('/forum', createEntryHandler);
  *                   comment:
  *                     type: string
  */
-router.get('/forum', getAllForumHandler);
+router.get('/forum', forum_controller_js_1.getAllForumHandler);
 /**
  * @openapi
  * /api/forum/{id}:
@@ -78,7 +83,7 @@ router.get('/forum', getAllForumHandler);
  *       404:
  *         description: Entrada no encontrada
  */
-router.get('/forum/:id', getEntryByIdHandler);
+router.get('/forum/:id', forum_controller_js_1.getEntryByIdHandler);
 /**
  * @openapi
  * /api/forum/{id}:
@@ -110,7 +115,7 @@ router.get('/forum/:id', getEntryByIdHandler);
  *       404:
  *         description: Entrada no encontrada
  */
-router.put('/forum/:id', updateEntryHandler);
+router.put('/forum/:id', forum_controller_js_1.updateEntryHandler);
 /**
  * @openapi
  * /api/forum/{id}:
@@ -131,5 +136,5 @@ router.put('/forum/:id', updateEntryHandler);
  *       404:
  *         description: Entrada no encontrada
  */
-router.delete('/forum/:id', deleteEntryHandler);
-export default router;
+router.delete('/forum/:id', forum_controller_js_1.deleteEntryHandler);
+exports.default = router;

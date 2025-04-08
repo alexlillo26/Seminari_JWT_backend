@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,28 +8,40 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import Subject from "../subjects/subject_model.js";
-export const saveMethod = () => {
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getUsersBySubject = exports.deleteSubject = exports.updateSubject = exports.getSubjectById = exports.getAllSubjects = exports.createSubject = exports.saveMethod = void 0;
+const subject_model_js_1 = __importDefault(require("../subjects/subject_model.js"));
+const saveMethod = () => {
     return 'Hola';
 };
-export const createSubject = (subjectData) => __awaiter(void 0, void 0, void 0, function* () {
-    const subject = new Subject(subjectData);
+exports.saveMethod = saveMethod;
+const createSubject = (subjectData) => __awaiter(void 0, void 0, void 0, function* () {
+    const subject = new subject_model_js_1.default(subjectData);
     return yield subject.save();
 });
-export const getAllSubjects = () => __awaiter(void 0, void 0, void 0, function* () {
-    return yield Subject.find();
+exports.createSubject = createSubject;
+const getAllSubjects = () => __awaiter(void 0, void 0, void 0, function* () {
+    return yield subject_model_js_1.default.find();
 });
-export const getSubjectById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield Subject.findById(id);
+exports.getAllSubjects = getAllSubjects;
+const getSubjectById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield subject_model_js_1.default.findById(id);
 });
-export const updateSubject = (id, updateData) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield Subject.updateOne({ _id: id }, { $set: updateData });
+exports.getSubjectById = getSubjectById;
+const updateSubject = (id, updateData) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield subject_model_js_1.default.updateOne({ _id: id }, { $set: updateData });
 });
-export const deleteSubject = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield Subject.deleteOne({ _id: id });
+exports.updateSubject = updateSubject;
+const deleteSubject = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield subject_model_js_1.default.deleteOne({ _id: id });
 });
-export const getUsersBySubject = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const subject = yield Subject.findById(id).populate('students');
+exports.deleteSubject = deleteSubject;
+const getUsersBySubject = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const subject = yield subject_model_js_1.default.findById(id).populate('students');
     console.log(subject);
     return subject ? subject.students : [];
 });
+exports.getUsersBySubject = getUsersBySubject;

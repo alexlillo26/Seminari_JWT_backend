@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,13 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { hash, compare } from "bcryptjs";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.verified = exports.encrypt = void 0;
+const bcryptjs_1 = require("bcryptjs");
 const encrypt = (pass) => __awaiter(void 0, void 0, void 0, function* () {
-    const passwordHash = yield hash(pass, 8);
+    const passwordHash = yield (0, bcryptjs_1.hash)(pass, 8);
     return passwordHash;
 });
+exports.encrypt = encrypt;
 const verified = (pass, passHash) => __awaiter(void 0, void 0, void 0, function* () {
-    const isCorrect = yield compare(pass, passHash);
+    const isCorrect = yield (0, bcryptjs_1.compare)(pass, passHash);
     return isCorrect;
 });
-export { encrypt, verified };
+exports.verified = verified;

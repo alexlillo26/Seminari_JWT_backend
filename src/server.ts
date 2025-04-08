@@ -69,7 +69,7 @@ const swaggerOptions = {
             },
         ],
     },
-    apis: ['./build/modules/users/*.js', './build/modules/forum/*.js', './build/modules/subjects/*.js', './build/modules/auth/*.js'] // Asegúrate de que esta ruta apunta a tus rutas
+    apis: ['./build/modules/users/*.js', './build/modules/forum/*.js', './build/modules/subjects/*.js', './build/modules/auth/*.js', "./src/modules/auth/auth_routes.ts"] // Asegúrate de que esta ruta apunta a tus rutas
 };
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -84,6 +84,7 @@ app.use('/api', userRoutes);
 app.use('/api', forumRoutes);
 app.use('/api', subjectRoutes);
 app.use('/api', authRoutes);
+
 // Rutes de prova
 app.get('/', (req, res) => {
     res.send('Welcome to my API');
